@@ -1,0 +1,161 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: rgba(0, 0, 0, 0.952);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+/* Réinitialisation et police */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Ajustement de la navbar */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    height: 80px; /* Assure une hauteur uniforme avec l'accueil */
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+.logo {
+    color: #a36508;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.logo a{
+    color: #a36508;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration-line: none;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #a36508;
+}
+
+/* Bouton de connexion */
+.btn-connexion {
+    background-color: #a36508;
+    color: #222;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.btn-connexion:hover {
+    background-color: #e18d0e;
+    transform: scale(1.05);
+}
+/* Contenu principal */
+.container {
+    background-color: white;
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: auto;
+    margin-top: 120px; /* Décalage pour ne pas être caché par la navbar */
+}
+
+h2 {
+    color: #8B5E3B;
+    margin-bottom: 20px;
+}
+
+form label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #A67B5B;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #8B5E3B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #6D402B;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    header .logo {
+        font-size: 18px;
+    }
+
+    nav a {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .container {
+        padding: 30px;
+    }
+
+    input, textarea, button {
+        font-size: 14px;
+    }
+}

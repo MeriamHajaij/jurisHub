@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contactez le cabinet d'avocats pour toute question ou demande de service.">
+    <title>Contactez-nous</title>
+    <link rel="stylesheet" href="contact.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"><a href="../acceuil/index.html">JurisHub</a></div>
+            <ul class="nav-links">
+                <li><a href="../acceuil/index.html">Accueil</a></li>
+                <li><a href="../acceuil/index.html#features">Services</a></li>
+                <li><a href="../acceuil/index.html#about">À propos</a></li>
+                <li><a href="../contact/contact.html">Contact</a></li>
+            </ul>
+            <a href="../acceuil/login/login.html" class="btn-connexion">Connexion</a>
+        </nav>
+    </header>
+    
+
+    <div class="container">
+        <h2>Contactez-nous</h2>
+        <form action="https://formspree.io/f/xvgzqkwb" method="POST">
+            <label for="email">Votre email :</label>
+            <input type="email" id="email" name="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" title="Veuillez entrer un email valide (ex : exemple@domaine.com)">
+            
+            <label for="message">Votre message :</label>
+            <textarea id="message" name="message" required></textarea>
+            
+            <button type="submit">Envoyer</button>
+        </form>
+    </div>
+    
+    <script src="contact.js"></script>
+</body>
+</html>

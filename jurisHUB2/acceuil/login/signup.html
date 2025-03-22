@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Créez votre compte pour accéder aux services du cabinet d'avocats.">
+    <title>Créer un compte</title>
+    <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav>
+            <div class="logo"><a href="index.html">JurisHub</a></div>
+            <ul class="nav-links">
+                <li><a href="../acceuil/index.html">Accueil</a></li>
+                <li><a href="../acceuil/index.html#features">Services</a></li>
+                <li><a href="../acceuil/index.html#about">À propos</a></li>
+                <li><a href="../contact/contact.html">Contact</a></li>
+            </ul>
+            <a href="../acceuil/login/login.html" class="btn-connexion">Connexion</a>
+        </nav>
+    </header>
+    
+
+
+    <!-- Formulaire d'inscription -->
+    <div class="signup-wrapper">
+        <div class="signup-container">
+            <h2>Créer un compte</h2>
+            <form id="signupForm">
+                <label for="newEmail">Email :</label>
+                <input type="email" id="newEmail" name="newEmail" required>
+
+                <label for="newPassword">Mot de passe :</label>
+                <input type="password" id="newPassword" name="newPassword" required>
+
+                <label for="confirmPassword">Confirmer le mot de passe :</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+                <button type="submit">S'inscrire</button>
+            </form>
+
+            <p>Déjà un compte ? <a href="login.html">Se connecter</a></p>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annuler un Rendez-vous</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: rgba(0, 0, 0, 0.952);
+            padding-top: 80px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            height: 80px;
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .logo a{
+            color: #a36508;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration-line: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #a36508;
+        }
+
+        /* Dropdown Menu */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: #222;
+            min-width: 200px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-content a:hover {
+            background: #a36508;
+            color: white;
+        }
+
+        .nav-links li:hover .dropdown-content {
+            display: block;
+        }
+
+
+        .btn-connexion {
+            background-color: #a36508;
+            color: #222;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-connexion:hover {
+            background-color: #e18d0e;
+            transform: scale(1.05);
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            margin-top: 100px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: #a36508;
+            color: white;
+        }
+
+        .btn-annuler {
+            background: #d9534f;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn-annuler:hover {
+            background: #c9302c;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="logo"><a href="indexclient.html">JurisHub</a></div>
+        <ul class="nav-links">
+            <li>
+                <a href="#">Gérer vos rendez-vous</a>
+                <div class="dropdown-content">
+                    <a href="annuler_rdv.html">Annuler un rendez-vous</a>
+                    <a href="voir_rdv.html">Voir mes rendez-vous</a>
+                    <a href="appointment.html">Prendre un rendez-vous</a>
+                </div>
+            </li>
+            <li><a href="affjud.html">Affaires judiciaires</a></li>
+            <li><a href="pp.html">Prochain procès</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <a href="../acceuil/login/login.html" class="btn-connexion">Deconnexion</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>Annuler un Rendez-vous</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Heure</th>
+                <th>Motif</th>
+                <th>Statut</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="rdvTable">
+            <tr>
+                <td>2025-03-05</td>
+                <td>10:00 - 10:30</td>
+                <td>Consultation juridique</td>
+                <td>Confirmé</td>
+                <td><button class="btn-annuler" onclick="annulerRdv(this)">Annuler</button></td>
+            </tr>
+            <tr>
+                <td>2025-03-10</td>
+                <td>15:00 - 15:30</td>
+                <td>Conseil en droit des affaires</td>
+                <td>Confirmé</td>
+                <td><button class="btn-annuler" onclick="annulerRdv(this)">Annuler</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function annulerRdv(button) {
+        const row = button.closest("tr");
+        const date = row.cells[0].textContent;
+        const heure = row.cells[1].textContent;
+        const confirmation = confirm(`Voulez-vous vraiment annuler le rendez-vous du ${date} à ${heure} ?`);
+
+        if (confirmation) {
+            row.cells[3].textContent = "Annulé";
+            button.remove();
+            alert("Votre rendez-vous a été annulé avec succès.");
+        }
+    }
+</script>
+
+</body>
+</html>

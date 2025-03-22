@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Affaires Judiciaires</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: rgba(0, 0, 0, 0.952);
+            padding-top: 80px;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            height: 80px;
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .logo a{
+            color: #a36508;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration-line: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #a36508;
+        }
+
+        /* Dropdown Menu */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: #222;
+            min-width: 200px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-content a:hover {
+            background: #a36508;
+            color: white;
+        }
+
+        .nav-links li:hover .dropdown-content {
+            display: block;
+        }
+
+
+        .btn-connexion {
+            background-color: #a36508;
+            color: #222;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-connexion:hover {
+            background-color: #e18d0e;
+            transform: scale(1.05);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            margin-top: 100px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .search-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: #a36508;
+            color: white;
+        }
+
+        .btn-details {
+            background: #31708f;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn-details:hover {
+            background: #245269;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="logo"><a href="indexclient.html">JurisHub</a></div>
+        <ul class="nav-links">
+            <li>
+                <a href="#">Gérer vos rendez-vous</a>
+                <div class="dropdown-content">
+                    <a href="annuler_rdv.html">Annuler un rendez-vous</a>
+                    <a href="voir_rdv.html">Voir mes rendez-vous</a>
+                    <a href="appointment.html">Prendre un rendez-vous</a>
+                </div>
+            </li>
+            <li><a href="affjud.html">Affaires judiciaires</a></li>
+            <li><a href="pp.html">Prochain procès</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <a href="../acceuil/login/login.html" class="btn-connexion">Deconnexion</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>Affaires Judiciaires</h2>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Rechercher une affaire...">
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Numéro d'affaire</th>
+                <th>Type</th>
+                <th>Statut</th>
+                <th>Date d'audience</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="affairesTable">
+            <tr>
+                <td>2023-001</td>
+                <td>Affaire pénale</td>
+                <td>En cours</td>
+                <td>2025-03-15</td>
+                <td><button class="btn-details">Détails</button></td>
+            </tr>
+            <tr>
+                <td>2023-002</td>
+                <td>Litige commercial</td>
+                <td>Clôturée</td>
+                <td>2024-12-20</td>
+                <td><button class="btn-details">Détails</button></td>
+            </tr>
+            <tr>
+                <td>2023-003</td>
+                <td>Droit du travail</td>
+                <td>Reportée</td>
+                <td>2025-04-05</td>
+                <td><button class="btn-details">Détails</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function filterTable() {
+        let input = document.getElementById("searchInput").value.toLowerCase();
+        let rows = document.querySelectorAll("#affairesTable tr");
+
+        rows.forEach(row => {
+            let text = row.textContent.toLowerCase();
+            row.style.display = text.includes(input) ? "" : "none";
+        });
+    }
+</script>
+
+</body>
+</html>
