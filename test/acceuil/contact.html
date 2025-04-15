@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contactez le cabinet d'avocate Ghofrane Hajaïj pour toute question ou demande de service juridique.">
+    <title>Contact | Cabinet Ghofrane Hajaïj</title>
+    <link rel="stylesheet" href="../acceuil/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation (identique à l'accueil) -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="../acceuil/index.html" class="logo" aria-label="JurisHub - Retour à l'accueil">JurisHub</a>
+                
+                <button class="menu-toggle" aria-expanded="false" aria-label="Menu mobile">
+                    <span class="hamburger"></span>
+                </button>
+                
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link active">Accueil</a></li>
+                    <li><a href="index.html#services" class="nav-link">Services</a></li>
+                    <li><a href="index.html#about" class="nav-link">À propos</a></li>
+                    <li><a href="index.html#features" class="nav-link">Fonctionnalités</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                </ul>
+                
+                <a href="../acceuil/login/login.html" class="btn-connexion">
+                    <i class="fas fa-user"></i> Connexion
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Section Contact -->
+    <section id="contact1" class="contact1-section">
+        <div class="container">
+            <div class="contact1-grid"> 
+                    <div class="section1-header">
+                        <span class="section-subtitle">Envoyez-nous un message</span>
+                        <h2 class="section-title">Formulaire de contact</h2>
+                    </div>
+                    
+                    <form action="https://formspree.io/f/xvgzqkwb" method="POST" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Nom complet*</label>
+                            <input type="text" id="name" name="name" required placeholder="Votre nom">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email*</label>
+                            <input type="email" id="email" name="email" required 
+                                   pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" 
+                                   placeholder="votre@email.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Téléphone</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+216 __ ___ ___">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="service">Service concerné*</label>
+                            <select id="service" name="service" required>
+                                <option value="" disabled selected>Sélectionnez un service</option>
+                                <option value="conseil">Conseil juridique</option>
+                                <option value="famille">Droit de la famille</option>
+                                <option value="penal">Droit pénal</option>
+                                <option value="travail">Droit du travail</option>
+                                <option value="affaires">Droit des affaires</option>
+                                <option value="autre">Autre demande</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message*</label>
+                            <textarea id="message" name="message" rows="5" required 
+                                      placeholder="Décrivez votre demande..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-button">
+                            <i class="fas fa-paper-plane"></i> Envoyer le message
+                        </button>
+                    </form>
+        </div>
+    </section>
+    <script src="../acceuil/script.js"></script>
+</body>
+</html>
