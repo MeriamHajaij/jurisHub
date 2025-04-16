@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prendre un Rendez-vous - JurisHub</title>
+    
+    <!-- CSS Externes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Interne -->
+    <style>
+        /* Variables et Reset */
+        :root {
+            --primary-blue: #2a5bd7;
+            --primary-blue-hover: #1e4ab8;
+            --secondary-blue: #e6f0ff;
+            --dark-blue: #0a1f44;
+            --light-blue: #f8faff;
+            --white: #ffffff;
+            --text-dark: #2d3748;
+            --text-light: #718096;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-blue);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--white);
+            height: 80px;
+            z-index: 1000;
+            box-shadow: var(--box-shadow);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo a {
+            color: var(--primary-blue);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo a:hover {
+            color: var(--primary-blue-hover);
+        }
+
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links > li {
+            margin: 0 12px;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 10px 0;
+            display: inline-block;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--white);
+            min-width: 220px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            list-style: none;
+            padding: 8px 0;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-menu li {
+            padding: 0;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .dropdown-menu a:hover {
+            background: var(--secondary-blue);
+            color: var(--primary-blue);
+            padding-left: 25px;
+        }
+
+        /* Boutons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 24px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            text-align: center;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-logout {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            box-shadow: 0 2px 8px rgba(42, 91, 215, 0.3);
+        }
+
+        .btn-logout:hover {
+            background-color: var(--primary-blue-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(42, 91, 215, 0.4);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            width: 100%;
+            padding: 14px;
+            font-size: 1rem;
+            margin-top: 8px;
+            box-shadow: 0 2px 8px rgba(42, 91, 215, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-blue-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(42, 91, 215, 0.4);
+        }
+
+        /* Contenu Principal */
+        .main-content {
+            padding: 60px 0;
+        }
+
+        .appointment-container {
+            max-width: 640px;
+            background: var(--white);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin: 0 auto;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 32px;
+            color: var(--primary-blue);
+            font-size: 2rem;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 16px;
+        }
+
+        .page-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary-blue);
+            border-radius: 3px;
+        }
+
+        /* Formulaire */
+        .appointment-form {
+            margin-top: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--border-radius);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: var(--light-blue);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(42, 91, 215, 0.2);
+            background-color: var(--white);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--dark-blue);
+            font-size: 0.95rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-nav {
+                flex-direction: column;
+                height: auto;
+                padding: 15px 0;
+            }
+
+            .nav-links {
+                margin: 15px 0;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-links > li {
+                margin: 5px 10px;
+            }
+
+            .appointment-container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <nav class="main-nav container">
+            <div class="logo">
+                <a href="indexclient.html">
+                    <i class="fas fa-balance-scale logo-icon"></i>
+                    <span>JurisHub</span>
+                </a>
+            </div>
+            
+            <ul class="nav-links">
+                <li class="dropdown">
+                    <a href="#">
+                        <i class="fas fa-calendar-alt" style="margin-right: 8px;"></i>
+                        Gérer vos rendez-vous
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="annuler_rdv.html"><i class="fas fa-times-circle" style="margin-right: 8px;"></i>Annuler un rendez-vous</a></li>
+                        <li><a href="voir_rdv.html"><i class="fas fa-eye" style="margin-right: 8px;"></i>Voir mes rendez-vous</a></li>
+                        <li><a href="appointment.html"><i class="fas fa-plus-circle" style="margin-right: 8px;"></i>Prendre un rendez-vous</a></li>
+                    </ul>
+                </li>
+                <li><a href="affjud.html"><i class="fas fa-gavel" style="margin-right: 8px;"></i>Affaires judiciaires</a></li>
+                <li><a href="pp.html"><i class="fas fa-hourglass-half" style="margin-right: 8px;"></i>Prochain procès</a></li>
+                <li><a href="#"><i class="fas fa-envelope" style="margin-right: 8px;"></i>Contact</a></li>
+            </ul>
+            
+            <a href="../acceuil/login/login.html" class="btn btn-logout">
+                <i class="fas fa-sign-out-alt" style="margin-right: 8px;"></i>
+                Déconnexion
+            </a>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="appointment-container">
+            <h1 class="page-title">Prendre un Rendez-vous</h1>
+            
+            <form id="appointmentForm" class="appointment-form">
+                <div class="form-group">
+                    <label for="date"><i class="fas fa-calendar-day" style="margin-right: 8px;"></i>Date :</label>
+                    <input type="text" id="date" class="form-control" placeholder="Sélectionnez une date" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label for="time"><i class="fas fa-clock" style="margin-right: 8px;"></i>Créneau horaire :</label>
+                    <select id="time" class="form-control">
+                        <option value="">Sélectionnez un créneau</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="motif"><i class="fas fa-comment-alt" style="margin-right: 8px;"></i>Motif :</label>
+                    <textarea id="motif" class="form-control" rows="4" placeholder="Expliquez brièvement votre demande"></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-check-circle" style="margin-right: 8px;"></i>
+                    Confirmer le Rendez-vous
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <!-- JavaScript Externe -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fr.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    
+    <!-- JavaScript Interne -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Configuration du datepicker
+            const datePicker = flatpickr("#date", {
+                enableTime: false,
+                dateFormat: "d/m/Y",
+                minDate: "today",
+                locale: "fr",
+                onChange: function(selectedDates, dateStr) {
+                    updateTimeSlots(dateStr);
+                }
+            });
+        
+            // Mise à jour des créneaux horaires
+            function updateTimeSlots(selectedDate) {
+                const timeSelect = document.getElementById("time");
+                timeSelect.innerHTML = '<option value="">Sélectionnez un créneau</option>';
+        
+                if (!selectedDate) return;
+        
+                // Simuler des créneaux disponibles (en pratique, vous feriez une requête AJAX ici)
+                const availableSlots = [
+                    "09:00 - 09:30",
+                    "10:00 - 10:30", 
+                    "11:00 - 11:30",
+                    "14:00 - 14:30",
+                    "15:00 - 15:30",
+                    "16:00 - 16:30"
+                ];
+        
+                availableSlots.forEach(time => {
+                    const option = document.createElement("option");
+                    option.value = time;
+                    option.textContent = time;
+                    timeSelect.appendChild(option);
+                });
+            }
+        
+            // Gestion de la soumission du formulaire
+            document.getElementById("appointmentForm").addEventListener("submit", function(event) {
+                event.preventDefault();
+                
+                const selectedDate = document.getElementById("date").value;
+                const selectedTime = document.getElementById("time").value;
+                const motif = document.getElementById("motif").value.trim();
+        
+                // Validation
+                if (!selectedDate || !selectedTime || !motif) {
+                    alert("Veuillez remplir tous les champs obligatoires.");
+                    return;
+                }
+        
+                // Ici, vous feriez normalement une requête AJAX pour enregistrer le rendez-vous
+                console.log("Rendez-vous soumis:", { selectedDate, selectedTime, motif });
+                
+                // Message de confirmation plus élégant
+                const confirmationMessage = `
+                    Votre demande de rendez-vous a été enregistrée avec succès.
+                    
+                    Détails :
+                    - Date: ${selectedDate}
+                    - Horaire: ${selectedTime}
+                    - Motif: ${motif.substring(0, 50)}${motif.length > 50 ? '...' : ''}
+                    
+                    Nous vous confirmerons ce rendez-vous par email dans les plus brefs délais.
+                `;
+                
+                alert(confirmationMessage);
+                
+                // Réinitialisation du formulaire (optionnel)
+                this.reset();
+            });
+        });
+    </script>
+</body>
+</html>

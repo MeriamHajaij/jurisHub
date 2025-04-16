@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails des Procès - JurisHub</title>
+    
+    <!-- CSS Externes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Interne -->
+    <style>
+        /* Variables et Reset */
+        :root {
+            --primary-blue: #2a5bd7;
+            --primary-blue-hover: #1e4ab8;
+            --secondary-blue: #e6f0ff;
+            --dark-blue: #0a1f44;
+            --light-blue: #f8faff;
+            --white: #ffffff;
+            --text-dark: #2d3748;
+            --text-light: #718096;
+            --success-green: #28a745;
+            --warning-orange: #ffc107;
+            --error-red: #dc3545;
+            --info-blue: #17a2b8;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-blue);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--white);
+            height: 80px;
+            z-index: 1000;
+            box-shadow: var(--box-shadow);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .main-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo a {
+            color: var(--primary-blue);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo a:hover {
+            color: var(--primary-blue-hover);
+        }
+
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links > li {
+            margin: 0 12px;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 10px 0;
+            display: inline-block;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        /* Dropdown Menu */
+        .dropdown-content {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: var(--white);
+            min-width: 220px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            list-style: none;
+            padding: 8px 0;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            z-index: 1001;
+        }
+
+        .nav-links li:hover .dropdown-content {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dropdown-content a {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .dropdown-content a:hover {
+            background: var(--secondary-blue);
+            color: var(--primary-blue);
+            padding-left: 25px;
+        }
+
+        .dropdown-icon {
+            margin-right: 8px;
+            width: 16px;
+            text-align: center;
+        }
+
+        /* Boutons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 24px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            text-align: center;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-logout {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            box-shadow: 0 2px 8px rgba(42, 91, 215, 0.3);
+        }
+
+        .btn-logout:hover {
+            background-color: var(--primary-blue-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(42, 91, 215, 0.4);
+        }
+
+        .btn-back {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 12px 24px;
+            margin: 30px auto 0;
+            display: flex;
+            align-items: center;
+            width: max-content;
+            box-shadow: 0 2px 8px rgba(42, 91, 215, 0.3);
+        }
+
+        .btn-back:hover {
+            background-color: var(--primary-blue-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(42, 91, 215, 0.4);
+        }
+
+        /* Contenu Principal */
+        .main-content {
+            padding: 60px 0;
+        }
+
+        .case-details-container {
+            max-width: 1000px;
+            background: var(--white);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin: 0 auto;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 32px;
+            color: var(--primary-blue);
+            font-size: 2rem;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 16px;
+        }
+
+        .page-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary-blue);
+            border-radius: 3px;
+        }
+
+        /* Détails des affaires */
+        .case-container {
+            margin-bottom: 40px;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .case-header {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .case-icon {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .case-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .case-table th,
+        .case-table td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .case-table th {
+            width: 30%;
+            font-weight: 600;
+            color: var(--dark-blue);
+            background-color: var(--light-blue);
+        }
+
+        .case-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-icon {
+            margin-right: 6px;
+            font-size: 0.8rem;
+        }
+
+        .status-in-progress {
+            background-color: rgba(23, 162, 184, 0.1);
+            color: var(--info-blue);
+        }
+
+        .status-closed {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--success-green);
+        }
+
+        .status-postponed {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: var(--warning-orange);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-nav {
+                flex-direction: column;
+                height: auto;
+                padding: 15px 0;
+            }
+
+            .nav-links {
+                margin: 15px 0;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-links > li {
+                margin: 5px 10px;
+            }
+
+            .case-details-container {
+                padding: 30px 20px;
+            }
+
+            .case-table th,
+            .case-table td {
+                display: block;
+                width: 100%;
+            }
+
+            .case-table th {
+                background-color: transparent;
+                padding-bottom: 5px;
+            }
+
+            .case-table td {
+                padding-top: 5px;
+                padding-bottom: 15px;
+            }
+
+            .case-table tr {
+                border-bottom: 1px solid #e2e8f0;
+                display: block;
+                margin-bottom: 15px;
+            }
+
+            .case-table tr:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <nav class="main-nav container">
+            <div class="logo">
+                <a href="indexclient.html">
+                    <i class="fas fa-balance-scale logo-icon"></i>
+                    <span>JurisHub</span>
+                </a>
+            </div>
+            
+            <ul class="nav-links">
+                <li>
+                    <a href="#">
+                        <i class="fas fa-calendar-alt" style="margin-right: 8px;"></i>
+                        Gérer vos rendez-vous
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="annuler_rdv.html">
+                            <i class="fas fa-times-circle dropdown-icon"></i>
+                            Annuler un rendez-vous
+                        </a>
+                        <a href="voir_rdv.html">
+                            <i class="fas fa-eye dropdown-icon"></i>
+                            Voir mes rendez-vous
+                        </a>
+                        <a href="appointment.html">
+                            <i class="fas fa-plus-circle dropdown-icon"></i>
+                            Prendre un rendez-vous
+                        </a>
+                    </div>
+                </li>
+                <li><a href="affjud.html"><i class="fas fa-gavel" style="margin-right: 8px;"></i>Affaires judiciaires</a></li>
+                <li><a href="pp.html"><i class="fas fa-hourglass-half" style="margin-right: 8px;"></i>Prochain procès</a></li>
+                <li><a href="#"><i class="fas fa-envelope" style="margin-right: 8px;"></i>Contact</a></li>
+            </ul>
+            
+            <a href="../acceuil/login/login.html" class="btn btn-logout">
+                <i class="fas fa-sign-out-alt" style="margin-right: 8px;"></i>
+                Déconnexion
+            </a>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <div class="case-details-container">
+            <h1 class="page-title">Détails des Procès</h1>
+            
+            <!-- Première affaire -->
+            <div class="case-container">
+                <div class="case-header">
+                    <i class="fas fa-gavel case-icon"></i>
+                    Affaire N°2023-001
+                </div>
+                <table class="case-table">
+                    <tr>
+                        <th>Numéro du procès</th>
+                        <td>2023-001</td>
+                    </tr>
+                    <tr>
+                        <th>Parties concernées</th>
+                        <td>Jean Dupont vs Société XYZ</td>
+                    </tr>
+                    <tr>
+                        <th>Type de procès</th>
+                        <td>Litige commercial</td>
+                    </tr>
+                    <tr>
+                        <th>Statut</th>
+                        <td>
+                            <span class="status status-in-progress">
+                                <i class="fas fa-spinner status-icon"></i>
+                                En cours
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Date d'audience</th>
+                        <td>15 mars 2025</td>
+                    </tr>
+                    <tr>
+                        <th>Observations</th>
+                        <td>Audience reportée en attente de nouvelles preuves.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Deuxième affaire -->
+            <div class="case-container">
+                <div class="case-header">
+                    <i class="fas fa-gavel case-icon"></i>
+                    Affaire N°2024-002
+                </div>
+                <table class="case-table">
+                    <tr>
+                        <th>Numéro du procès</th>
+                        <td>2024-002</td>
+                    </tr>
+                    <tr>
+                        <th>Parties concernées</th>
+                        <td>Marie Lefevre vs Entreprise ABC</td>
+                    </tr>
+                    <tr>
+                        <th>Type de procès</th>
+                        <td>Droit du travail</td>
+                    </tr>
+                    <tr>
+                        <th>Statut</th>
+                        <td>
+                            <span class="status status-closed">
+                                <i class="fas fa-check-circle status-icon"></i>
+                                Clôturé
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Date d'audience</th>
+                        <td>10 février 2025</td>
+                    </tr>
+                    <tr>
+                        <th>Observations</th>
+                        <td>Jugement rendu en faveur de la plaignante avec indemnisation.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <a href="affaires_judiciaires.html" class="btn btn-back">
+                <i class="fas fa-arrow-left" style="margin-right: 8px;"></i>
+                Retour aux affaires judiciaires
+            </a>
+        </div>
+    </main>
+
+    <!-- JavaScript Externe -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+</body>
+</html>
